@@ -15,6 +15,7 @@ namespace HmzTest.Controllers
 
 
         [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<TokenDto>> Register([FromBody] RegisterDto body)
         {
             try
@@ -56,17 +57,19 @@ namespace HmzTest.Controllers
                 return StatusCode(500, ex);
             }
         }
+
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<TokenDto>> Login([FromBody] LoginDto body)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var user = await _userManager.FindByEmailAsync(body.Email);
-            if (user == null) return Unauthorized("Invalid email.");
+            if (user == null) return BadRequest("Invalid email.");
 
             var result = await _signinManager.CheckPasswordSignInAsync(user, body.Password, false);
 
-            if (!result.Succeeded) return Unauthorized("Invalid email and/or password.");
+            if (!result.Succeeded) return BadRequest("Invalid email and/or password.");
 
             return Ok(new TokenDto { Token = _tokenService.CreateToken(user) });
         }

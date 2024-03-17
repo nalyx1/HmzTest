@@ -17,6 +17,7 @@ namespace HmzTest.Controllers
         [Authorize]
         [ProducesResponseType(typeof(PaginatedDto<UserDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PaginatedDto<UserDto>>> GetAll([FromQuery] GetAllUsersRequest query)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -28,6 +29,7 @@ namespace HmzTest.Controllers
         [HttpGet("{id}")]
         [Authorize]
         [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserDto>> GetById([FromRoute] string id)
         {
@@ -42,6 +44,7 @@ namespace HmzTest.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] UpdateUserRequestDto body)
         {
@@ -64,6 +67,7 @@ namespace HmzTest.Controllers
         [HttpDelete("{id}")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
