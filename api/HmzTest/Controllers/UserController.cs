@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HmzTest.Controllers
 {
-    [Route("api/users")]
+    [Route("users")]
     [ApiController]
     public class UserController(IUserRepository userRepository) : ControllerBase
     {
