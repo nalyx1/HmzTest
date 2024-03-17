@@ -40,7 +40,7 @@ cd HmzTest
 3. Inicializar os Contêineres
 
 ```
-docker-compose up --build -d
+docker compose up --build -d
 ```
 
 4. Após a inicialização dos contêineres, a API estará acessível através do endereço:
